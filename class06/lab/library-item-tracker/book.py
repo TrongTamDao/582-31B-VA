@@ -26,10 +26,6 @@ class Book:
             print(f"{self.title} has been returned.")
         else:
             print(f"{self.title} was returned")
-            
-        
-    def display_book(self):
-        print(f"title: {self.title} - author: {self.author} - avaibility: {self.available}")
     
     
     @classmethod
