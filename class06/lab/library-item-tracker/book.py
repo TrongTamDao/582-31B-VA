@@ -21,15 +21,3 @@ class Book:
             print(f"{self.title} was returned")
             
         
-        
-b1 = Book("Harry Potter and Philosopher's stone", "J. K. Rowling", True)
-b2 = Book("Justice, what's the right thing to do?", "Micheal J.Sandel",  True)
-
-# b1.display_book()
-# b2.display_book()
-
-print("-----------------------------------")
-b1.borrow()
-b1.borrow()
-b1.return_book()
-b1.return_book()
