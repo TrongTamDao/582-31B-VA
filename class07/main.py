@@ -117,7 +117,11 @@ paypal_account = PayPal("456", 100)
 print("===========")
 def checkout(amount, fi):
     print(f"You owe ${amount}")
-
     fi.payment(amount)
 
 checkout(50, paypal_account)
+
+
+# another example
+
+# i want to have multiple animal classes (dog, cat, etc..)
