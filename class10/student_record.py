@@ -103,7 +103,7 @@ class StudentRecord:
 #         else:
 #             print("Invalid credit: Credit must be greater than or equal to 0")
             
-# s1 = StudentRecord("tam", 10, -4)
+s1 = StudentRecord("tam", 10, -4)
 # s1.name = "ngan"
 # # s1.credit = -9
 # print(s1.name)
