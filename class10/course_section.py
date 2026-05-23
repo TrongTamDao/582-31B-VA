@@ -9,9 +9,9 @@ class CourseSection:
         return self.__title 
     
     @title.setter
-    def title(self,str):
-        if (str.strip()):
-            self.__title = str
+    def title(self,value):
+        if (value.strip()):
+            self.__title = value
         else:
             print("Invalid title")
     
