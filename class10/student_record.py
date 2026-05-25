@@ -14,7 +14,7 @@ class StudentRecord:
         if (str.strip()):
             self.__name = str
         else:
-            print("Invalid name: Name cannot be empty")
+            raise ValueError("Invalid name: Name cannot be empty")
     
     # GPA    
     @property
@@ -31,7 +31,7 @@ class StudentRecord:
         if (0<= value <= 4):
             self.__gpa = value
         else:
-            print("Invalid value: GPA must be between 0.0 and 4.0")
+            raise ValueError("Invalid value: GPA must be between 0.0 and 4.0")
     
     # CREDIT       
     @property
@@ -48,22 +48,31 @@ class StudentRecord:
         if (value >= 0):
             self.__credit = value
         else:
-            print("Invalid credit: Credit must be greater than or equal to 0")
+            raise ValueError("Invalid credit: Credit must be greater than or equal to 0")
     
     def add_credit(self, amount):
         if (amount > 0):
             self.__credit += amount
         else:
-            print("Invalid input value: credit must be greater than 0")
+            raise ValueError ("Invalid input value: credit must be greater than 0")
     
     def update_gpa(self, amount):
         if (0<=amount<=4):
             self.__gpa = amount 
         else:
-            print("Invalid value: GPA must be between 0.0 and 4.0")
+            raise ValueError ("Invalid value: GPA must be between 0.0 and 4.0")
     
     def display_info(self):
         print(f"{self.name} has GPA: {self.__gpa} with {self.__credit} credit")
+        
+    @property
+    def academic_status(self):
+        if self.__gpa < 2:
+            return "At risk"
+        elif self.__gpa < 3.5:
+            return "Good standing"
+        else:
+            return "Honours"
 # class StudentRecord:
 #     def __init__(self, name, gpa, credit):
 #         self.name = name        # uses setter
