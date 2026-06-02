@@ -44,3 +44,4 @@ print(status.value)
 # for example: CourseStatus class becomes a container for a series of constants
 
 # all of the concepts above help us design one class properly
+
