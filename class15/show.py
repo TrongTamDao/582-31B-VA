@@ -1,6 +1,6 @@
-from user import Customer
-from user import User
-from user import Employee
+from user import (Customer, User, Employee)
+# from user import User
+# from user import Employee
 from status import ShowStatus
 from constant import MAX_TICKETS_PER_BOOKING
 from exception import (InvalidUser, InvalidBookingError)
@@ -70,11 +70,8 @@ class MovieShow:
         if not isinstance(quantity, int):
             raise InvalidBookingError("Booking quantity must be an integer")
         
-        if quantity <= 0:
-            raise InvalidBookingError("Booking quantity must be greater than 0")
-        
         if not (0<= quantity <= MAX_TICKETS_PER_BOOKING):
-            raise InvalidBookingError("Booking quantity must not greater than maximum booking per person")
+            raise InvalidBookingError("Booking quantity must not be negative or greater than maximum booking per person")
         
         if self.book_seats + quantity > self.capacity:
             raise InvalidBookingError("Not enough available seats.")

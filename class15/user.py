@@ -1,5 +1,4 @@
-class InvalidId(Exception):
-    pass
+from exception import *
 
 class User:
     def __init__(self, name, email):

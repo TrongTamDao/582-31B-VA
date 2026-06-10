@@ -1,5 +1,5 @@
-from user import Customer
-from user import Employee
+from user import (Customer, Employee)
+# from user import Employee
 from status import ShowStatus
 from constant import MAX_TICKETS_PER_BOOKING
 from show import MovieShow
@@ -31,32 +31,41 @@ print("===================================")
 # Update infor:
 movie1.display_info()
 
+print("===================================")
 # Invalid operations
 
 # booking too many tickets
 try:
     movie2 = MovieShow("Odysseus", 100, 40, ShowStatus.OPEN)
-    movie2.book_tickets(customer1, 100)
+    movie2.book_tickets(customer1, 130)
 except InvalidBookingError as error:
         print(error)
-        
+print("===================================")        
 # booking a sold-out show
 try:
-    movie3 = MovieShow("Odysseus", 100, 100, ShowStatus.OPEN)
+    movie3 = MovieShow("Odysseus", 100, 100, ShowStatus.SOLD_OUT)
     movie3.book_tickets(customer1, 100)
 except InvalidBookingError as error:
         print(error)
-
+print("===================================")
 # booking a cancelled show
 try:
     movie4 = MovieShow("Odysseus", 100, 100, ShowStatus.CANCELLED)
     movie4.book_tickets(customer1, 100)
 except InvalidBookingError as error:
         print(error)
-        
+
+print("===================================")      
 # invalid capacity
 try:
-    movie4 = MovieShow("Odysseus", 100, 0, ShowStatus.CANCELLED)
-    movie4.book_tickets(customer1, 110)
-except InvalidBookingError as error:
+    movie4 = MovieShow("Odysseus", -100, 0, ShowStatus.OPEN)
+    # movie4.book_tickets(customer1, 110)
+except ValueError as error:
         print(error)
+        
+# invalid user
+
+try:
+    movie1.book_tickets("",100)
+except InvalidUser as error:
+    print(error)
