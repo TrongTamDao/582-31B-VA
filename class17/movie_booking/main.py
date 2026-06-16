@@ -3,6 +3,7 @@ from core.enums import ShowStatus
 from core.constants import MAX_TICKETS_PER_BOOKING
 from models.movie_show import MovieShow
 from models.customer import Customer
+from models.staff import Staff
 
 def main():
     customer = Customer("Ava")
