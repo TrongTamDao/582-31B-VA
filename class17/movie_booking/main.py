@@ -7,7 +7,7 @@ from models.staff import Staff
 from utils import *
 
 def main():
-    customer = Customer("Ava")
+    customer = Customer(format_name("tam dao"))
     show = MovieShow(format_title("Inception"), 20, ShowStatus.OPEN)
     
     print_separator()
