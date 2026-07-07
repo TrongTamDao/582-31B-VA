@@ -56,7 +56,8 @@ class MovieShow:
             raise TypeError("Status must be a ShowStatus")
         
         self.__status = value
-    
+        
+    @property
     def remaining_seats(self):
         return self.capacity - self.book_seats
         
@@ -70,13 +71,16 @@ class MovieShow:
         if not isinstance(quantity, int):
             raise InvalidBookingError("Booking quantity must be an integer")
         
-        if not (0<= quantity <= MAX_TICKETS_PER_BOOKING):
+        if not (1<= quantity <= MAX_TICKETS_PER_BOOKING):
             raise InvalidBookingError("Booking quantity must not be negative or greater than maximum booking per person")
         
         if self.book_seats + quantity > self.capacity:
             raise InvalidBookingError("Not enough available seats.")
         
         self.book_seats += quantity
+
+        if self.remaining_seats == 0:
+            self.status = ShowStatus.SOLD_OUT
         
         print(f"Booking successful. {customer.name} booked {quantity} tickets")
     

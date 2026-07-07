@@ -22,7 +22,7 @@ movie1 = MovieShow("Harry Porter", 100, 51, ShowStatus.OPEN)
 movie1.display_info()
 print("============================")
 # Read-only computed property
-print(movie1.remaining_seats())
+print(movie1.remaining_seats)
 
 # Book ticket
 movie1.book_tickets(customer1, 2)
