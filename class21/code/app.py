@@ -74,14 +74,14 @@ def index():
 
     return render_template(
         "index.html",
-        album=albums,
+        albums=albums, #9 error
         selected_genre=genre
     )
 
 
 @app.route(
     "/albums/add",
-    methods=["GET"]
+    methods=["GET", "POST"] #10 error
 )
 def add_album():
     if request.method == "POST":
@@ -92,11 +92,11 @@ def add_album():
             year=request.form["year"],
             stock=request.form["stock"]
         )
-
+        db.session.add(album) #11 error
         db.session.commit()
 
         return redirect(
-            url_for("albums")
+            url_for("index") #12 error
         )
 
     return render_template(
