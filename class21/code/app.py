@@ -67,7 +67,7 @@ def index():
 
     if genre:
         albums = Album.query.filter_by(
-            artist=genre
+            genre=genre #8 error
         ).all()
     else:
         albums = Album.query.all
