@@ -116,12 +116,12 @@ def edit_album(album_id):
         album.artist = request.form["artist"]
         album.genre = request.form["genre"]
         album.year = request.form["year"]
-        album.stock = request.form["amount"]
+        album.stock = request.form["stock"] #14 eoror
         db.session.commit() #13 error
         return redirect(
             url_for(
-                "edit_album",
-                album_id=album.id #14 error
+                "index",
+                # album_id=album.id #15 error
             )
         )
 
@@ -139,6 +139,9 @@ def delete_album(album_id):
     album = Album.query.get_or_404(album_id)
 
     db.session.delete(album)
+    
+    db.session.commit() #16 error
+
 
     return redirect(
         url_for("index")
