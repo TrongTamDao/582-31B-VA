@@ -117,11 +117,11 @@ def edit_album(album_id):
         album.genre = request.form["genre"]
         album.year = request.form["year"]
         album.stock = request.form["amount"]
-
+        db.session.commit() #13 error
         return redirect(
             url_for(
                 "edit_album",
-                id=album.id
+                album_id=album.id #14 error
             )
         )
 
