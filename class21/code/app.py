@@ -86,7 +86,7 @@ def index():
 def add_album():
     if request.method == "POST":
         album = Album(
-            title=request.form["album_name"],
+            title=request.form["title"], #17 error
             artist=request.form["artist"],
             genre=request.form["genre"],
             year=request.form["year"],
