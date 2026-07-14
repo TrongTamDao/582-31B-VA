@@ -80,7 +80,7 @@ def index():
 
 
 @app.route(
-    "/albums/add",
+    "/add",
     methods=["GET", "POST"] #10 error
 )
 def add_album():
@@ -90,7 +90,7 @@ def add_album():
             artist=request.form["artist"],
             genre=request.form["genre"],
             year=request.form["year"],
-            stock=request.form["stock"]
+            stock=int(request.form["stock"])
         )
         db.session.add(album) #11 error
         db.session.commit()
@@ -105,7 +105,7 @@ def add_album():
 
 
 @app.route(
-    "/albums/<int:album_id>/edit",
+    "/edit/<int:album_id>",
     methods=["GET", "POST"]
 )
 def edit_album(album_id):
@@ -116,7 +116,7 @@ def edit_album(album_id):
         album.artist = request.form["artist"]
         album.genre = request.form["genre"]
         album.year = request.form["year"]
-        album.stock = request.form["stock"] #14 eoror
+        album.stock = int(request.form["stock"]) #14 eoror
         db.session.commit() #13 error
         return redirect(
             url_for(
@@ -132,7 +132,7 @@ def edit_album(album_id):
 
 
 @app.route(
-    "/albums/<int:album_id>/delete",
+    "/delete/<int:album_id>",
     methods=["GET"]
 )
 def delete_album(album_id):
@@ -141,7 +141,6 @@ def delete_album(album_id):
     db.session.delete(album)
     
     db.session.commit() #16 error
-
 
     return redirect(
         url_for("index")
