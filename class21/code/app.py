@@ -70,7 +70,7 @@ def index():
             genre=genre #8 error
         ).all()
     else:
-        albums = Album.query.all
+        albums = Album.query.all() #8 error
 
     return render_template(
         "index.html",
