@@ -126,7 +126,7 @@ def edit_album(album_id):
         )
 
     return render_template(
-        "add_album.html",
+        "edit_album.html",
         album=album
     )
 
