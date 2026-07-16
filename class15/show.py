@@ -92,7 +92,8 @@ class MovieShow:
               f"Title: {self.title}\n"
               f"Capacity: {self.capacity}\n"
               f"Booked seats: {self.book_seats}\n"
-              f"Status: {self.status.value}"
+              f"Status: {self.status.value}\n"
+              f"Remaining seats: {self.remaining_seats}"
               )
 
             
