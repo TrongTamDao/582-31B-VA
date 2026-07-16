@@ -146,6 +146,9 @@ def delete_album(album_id):
         url_for("index")
     )
 
+# Use POST method for Delete
+
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
