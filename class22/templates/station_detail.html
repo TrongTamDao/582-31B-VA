@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %} {{ station.name }} {% endblock %} {%
+block content %}
+
+<h2>{{ station.name }}</h2>
+
+<p>
+  <strong>Capacity:</strong>
+  {{ station.capacity }}
+</p>
+
+<p>
+  <strong>Total bikes:</strong>
+  {{ station.bike_count }}
+</p>
+
+<p>
+  <strong>Available bikes:</strong>
+  {{ station.available_bike_count }}
+</p>
+
+<p>
+  <strong>Remaining spaces:</strong>
+  {{ station.remaining_capacity }}
+</p>
+
+<h3>Bikes</h3>
+
+{% if station.bikes %} {% for bike in station.bikes %}
+
+<article>
+  <h4>{{ bike.id }}</h4>
+
+  <p>
+    <strong>Type:</strong>
+    {{ bike.bike_type }}
+  </p>
+
+  <p>
+    <strong>Distance:</strong>
+    {{ bike.distance_km }} km
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    {% if bike.can_be_rented %} Ready to rent {% elif bike.needs_service %}
+    Maintenance Required {% else %} Currently rented {% endif %}
+  </p>
+
+  {% if bike.can_be_rented %}
+
+  <form
+    method="POST"
+    action="{{ url_for(
+      'rent_bike',
+      bike_id=bike.id
+    ) }}"
+  >
+    <button type="submit">Rent</button>
+  </form>
+
+  {% elif not bike.is_available %}
+
+  <form
+    method="POST"
+    action="{{ url_for(
+      'return_bike',
+      bike_id=bike.id
+    ) }}"
+  >
+    <button type="submit">Return</button>
+  </form>
+
+  {% endif %}
+</article>
+
+{% endfor %} {% else %}
+
+<p>This station has no bikes.</p>
+
+{% endif %}
+
+<p>
+  <a href="{{ url_for('stations') }}"> Back to stations </a>
+</p>
+
+{% endblock %}

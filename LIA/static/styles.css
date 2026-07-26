@@ -1,0 +1,287 @@
+/* Shelf — stylesheet
+ *
+ * Colours, spacing and radii are declared as custom properties so the palette
+ * is defined once and every rule below refers back to it.
+ */
+
+:root {
+  --ink:        #23201c;
+  --ink-soft:   #6b645c;
+  --paper:      #faf7f2;
+  --surface:    #ffffff;
+  --line:       #e5ded4;
+
+  --accent:     #8a5a2b;
+  --accent-dark:#6d4620;
+  --danger:     #a13333;
+
+  --status-want:     #e8eef6;
+  --status-want-ink: #2c4a70;
+  --status-reading:     #fdf0dc;
+  --status-reading-ink: #8a5a2b;
+  --status-finished:     #e4f0e6;
+  --status-finished-ink: #2d6136;
+
+  --radius: 10px;
+  --gap:    1rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Georgia, "Iowan Old Style", serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Header / navigation ─────────────────────────────────────────────── */
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a,
+.link-button {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.nav-links a:hover,
+.link-button:hover { color: var(--accent); }
+
+/* A button styled as a link, so logout can POST without looking like a form. */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-links form { display: inline; margin: 0; }
+
+.button-link {
+  background: var(--accent);
+  color: #fff !important;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+}
+
+.button-link:hover { background: var(--accent-dark); }
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+
+.container {
+  flex: 1;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+.page-header { margin-bottom: 1.5rem; }
+
+h1 { font-size: 1.8rem; margin: 0 0 0.25rem; }
+h2 { font-size: 1.15rem; margin: 0; }
+
+.muted  { color: var(--ink-soft); font-size: 0.92rem; }
+.hint   { color: var(--ink-soft); font-size: 0.82rem; display: block;
+          margin: -0.6rem 0 0.9rem; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.form-card { max-width: 460px; margin: 0 auto; }
+
+/* ── Flash messages ──────────────────────────────────────────────────── */
+
+.flashes { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+
+.flash {
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  font-size: 0.92rem;
+  border: 1px solid;
+}
+
+.flash-success {
+  background: var(--status-finished);
+  border-color: #bcd9c2;
+  color: var(--status-finished-ink);
+}
+
+.flash-error {
+  background: #fbeaea;
+  border-color: #e8c2c2;
+  color: var(--danger);
+}
+
+/* ── Forms ───────────────────────────────────────────────────────────── */
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  background: var(--surface);
+}
+
+textarea { resize: vertical; }
+
+.form-actions { display: flex; gap: 0.6rem; align-items: center; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+
+.button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.6rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+.button-small { padding: 0.35rem 0.8rem; font-size: 0.85rem; }
+
+.button-secondary {
+  background: transparent;
+  color: var(--ink-soft);
+  border-color: var(--line);
+}
+
+.button-secondary:hover { background: var(--paper); color: var(--ink); }
+
+.button-danger { background: var(--danger); border-color: var(--danger); }
+.button-danger:hover { background: #862a2a; border-color: #862a2a; }
+
+/* ── Book list ───────────────────────────────────────────────────────── */
+
+.book-list { list-style: none; margin: 0; padding: 0;
+             display: flex; flex-direction: column; gap: 0.9rem; }
+
+.book {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+
+.book-main  { flex: 1 1 260px; }
+.book-title { font-size: 1.15rem; margin: 0 0 0.1rem; }
+.book-author{ color: var(--ink-soft); margin: 0 0 0.5rem; font-size: 0.95rem; }
+.book-note  { margin: 0; font-size: 0.92rem; color: var(--ink-soft);
+              border-left: 3px solid var(--line); padding-left: 0.75rem; }
+
+.book-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.book-actions { display: flex; gap: 0.4rem; }
+.book-actions form { margin: 0; }
+
+/* ── Status badges ───────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Class names are generated in the template from the status string:
+   "Want to read" → badge-want-to-read */
+.badge-want-to-read { background: var(--status-want);     color: var(--status-want-ink); }
+.badge-reading      { background: var(--status-reading);  color: var(--status-reading-ink); }
+.badge-finished     { background: var(--status-finished); color: var(--status-finished-ink); }
+
+/* ── Empty state ─────────────────────────────────────────────────────── */
+
+.empty-state { text-align: center; padding: 3rem 1.5rem; }
+.empty-state .button { margin-top: 1rem; }
+
+/* ── Footer ──────────────────────────────────────────────────────────── */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ── Narrow screens ──────────────────────────────────────────────────── */
+
+@media (max-width: 560px) {
+  .book { flex-direction: column; }
+  .book-side { align-items: flex-start; width: 100%; }
+}

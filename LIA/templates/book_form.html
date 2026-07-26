@@ -1,0 +1,68 @@
+{#
+  Shared by both "add a book" and "edit a book".
+
+  The two forms differ only in their heading, their action URL and their
+  submit label, so they are one template rather than two near-identical ones.
+
+  Context:
+    book     — a Book, or a dict of submitted values after a failed POST,
+               or None when rendering a blank "add" form
+    is_edit  — True when editing an existing book
+    book_id  — the book's id; only needed when is_edit is True
+#}
+{% extends "base.html" %}
+
+{% set heading = "Edit book" if is_edit else "Add a book" %}
+{% set submit_label = "Save changes" if is_edit else "Add to shelf" %}
+{% set action_url = url_for('books.edit_book', book_id=book_id)
+                    if is_edit else url_for('books.new_book') %}
+
+{# `book` may be a model instance, a dict or None. Reading each field into a
+   local variable once keeps the inputs below free of repeated guards. #}
+{% set title_value  = book.title  if book else '' %}
+{% set author_value = book.author if book else '' %}
+{% set note_value   = book.note   if book else '' %}
+{% set status_value = book.status if book else READING_STATUSES[0] %}
+
+{% block title %}{{ heading }} — Shelf{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+  <h1>{{ heading }}</h1>
+
+  <form action="{{ action_url }}" method="post" novalidate>
+
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text"
+           value="{{ title_value or '' }}"
+           maxlength="{{ MAX_TITLE_LENGTH }}" required autofocus>
+
+    <label for="author">Author</label>
+    <input id="author" name="author" type="text"
+           value="{{ author_value or '' }}"
+           maxlength="{{ MAX_AUTHOR_LENGTH }}" required>
+
+    <label for="status">Reading status</label>
+    <select id="status" name="status" required>
+      {# Options come from the same constant the server validates against. #}
+      {% for status in READING_STATUSES %}
+        <option value="{{ status }}" {{ 'selected' if status == status_value }}>
+          {{ status }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <label for="note">Note <span class="muted">(optional)</span></label>
+    <textarea id="note" name="note" rows="4"
+              maxlength="{{ MAX_NOTE_LENGTH }}"
+              placeholder="Why you want to read it, where you heard about it…"
+              >{{ note_value or '' }}</textarea>
+
+    <div class="form-actions">
+      <button class="button" type="submit">{{ submit_label }}</button>
+      <a class="button button-secondary"
+         href="{{ url_for('books.list_books') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

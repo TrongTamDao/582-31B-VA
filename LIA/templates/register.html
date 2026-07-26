@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Register — Shelf{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+  <h1>Create an account</h1>
+  <p class="muted">Start keeping track of what you want to read.</p>
+
+  <form method="post" novalidate>
+
+    <label for="username">Username</label>
+    {# `value` is repopulated after a failed submission so nothing is retyped. #}
+    <input id="username" name="username" type="text"
+           value="{{ username or '' }}"
+           maxlength="{{ MAX_USERNAME_LENGTH }}" required autofocus>
+
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email"
+           value="{{ email or '' }}"
+           maxlength="{{ MAX_EMAIL_LENGTH }}" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password"
+           minlength="{{ MIN_PASSWORD_LENGTH }}" required>
+    <small class="hint">At least {{ MIN_PASSWORD_LENGTH }} characters.</small>
+
+    <label for="confirm_password">Confirm password</label>
+    <input id="confirm_password" name="confirm_password" type="password"
+           minlength="{{ MIN_PASSWORD_LENGTH }}" required>
+
+    <button class="button" type="submit">Create account</button>
+  </form>
+
+  <p class="muted">
+    Already registered? <a href="{{ url_for('auth.login') }}">Sign in</a>.
+  </p>
+</section>
+{% endblock %}

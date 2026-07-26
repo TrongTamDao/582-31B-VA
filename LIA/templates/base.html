@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Shelf{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="{{ url_for('index') }}">Shelf</a>
+
+      {# The navigation reflects authentication state: signed-out visitors are
+         offered a way in, signed-in users a way to their list and back out. #}
+      <ul class="nav-links">
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('books.list_books') }}">My shelf</a></li>
+          <li><a class="button-link" href="{{ url_for('books.new_book') }}">Add a book</a></li>
+          <li>
+            {# POST so that logout cannot be triggered by following a link. #}
+            <form action="{{ url_for('auth.logout') }}" method="post">
+              <button class="link-button" type="submit">Sign out</button>
+            </form>
+          </li>
+        {% else %}
+          <li><a href="{{ url_for('auth.login') }}">Sign in</a></li>
+          <li><a class="button-link" href="{{ url_for('auth.register') }}">Register</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    {# Flash messages are rendered here so every page reports outcomes the
+       same way, rather than each template inventing its own banner. #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>Shelf — your personal reading list.</p>
+  </footer>
+
+</body>
+</html>

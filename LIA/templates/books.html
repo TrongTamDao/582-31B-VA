@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}My shelf — Shelf{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <h1>{{ current_user.username }}’s shelf</h1>
+  <p class="muted">
+    {{ books|length }} book{{ '' if books|length == 1 else 's' }} on your list.
+  </p>
+</header>
+
+{% if books %}
+  <ul class="book-list">
+    {% for book in books %}
+      <li class="card book">
+
+        <div class="book-main">
+          <h2 class="book-title">{{ book.title }}</h2>
+          <p class="book-author">by {{ book.author }}</p>
+
+          {% if book.note %}
+            <p class="book-note">{{ book.note }}</p>
+          {% endif %}
+        </div>
+
+        <div class="book-side">
+          {# The status slug drives the badge colour. Lowercasing and replacing
+             spaces turns "Want to read" into the class name "want-to-read". #}
+          <span class="badge badge-{{ book.status|lower|replace(' ', '-') }}">
+            {{ book.status }}
+          </span>
+
+          <div class="book-actions">
+            <a class="button button-small"
+               href="{{ url_for('books.edit_book', book_id=book.id) }}">Edit</a>
+
+            {# POST so the book cannot be deleted by following a link. #}
+            <form action="{{ url_for('books.delete_book', book_id=book.id) }}"
+                  method="post"
+                  onsubmit="return confirm('Remove “{{ book.title }}” from your shelf?');">
+              <button class="button button-small button-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <section class="card empty-state">
+    <h2>Your shelf is empty</h2>
+    <p class="muted">Add the first book you want to read.</p>
+    <a class="button" href="{{ url_for('books.new_book') }}">Add a book</a>
+  </section>
+{% endif %}
+{% endblock %}

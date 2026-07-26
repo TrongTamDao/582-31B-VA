@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in — Shelf{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+  <h1>Sign in</h1>
+  <p class="muted">Welcome back.</p>
+
+  <form method="post" novalidate>
+
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text"
+           value="{{ username or '' }}"
+           maxlength="{{ MAX_USERNAME_LENGTH }}" required autofocus>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required>
+
+    <button class="button" type="submit">Sign in</button>
+  </form>
+
+  <p class="muted">
+    No account yet? <a href="{{ url_for('auth.register') }}">Register</a>.
+  </p>
+</section>
+{% endblock %}
